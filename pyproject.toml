@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "web-hw-12"
+version = "0.1.0"
+description = ""
+authors = ["AlinaRybchuk <alina_rybchuk_96@ukr.net>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.5"
+uvicorn = "^0.32.1"
+sqlalchemy = "^2.0.36"
+pydantic = "^2.10.0"
+passlib = "^1.7.4"
+python-jose = "^3.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
