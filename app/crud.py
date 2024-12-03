@@ -40,3 +40,23 @@ def delete_contact(db: Session, contact_id: int, user_id: int):
         db.delete(db_contact)
         db.commit()
     return db_contact
+
+def save_verification_token(db: Session, user_email: str, token: str):
+    user = db.query(models.User).filter(models.User.email == user_email).first()
+    user.verification_token = token
+    db.commit()
+
+def verify_user_token(db: Session, token: str):
+    user = db.query(models.User).filter(models.User.verification_token == token).first()
+    return user
+
+def update_user_verification(db: Session, email: str):
+    user = db.query(models.User).filter(models.User.email == email).first()
+    user.is_verified = True
+    user.verification_token = None 
+    db.commit()
+
+def update_user_avatar(db: Session, user_id: int, avatar_url: str):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    user.avatar_url = avatar_url
+    db.commit()

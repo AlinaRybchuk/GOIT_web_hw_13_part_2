@@ -1,0 +1,45 @@
+version: '2'
+services:
+  app:
+    build: ./app  
+    container_name: fastapi_app
+    ports:
+      - "8001:8001" 
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - SQLALCHEMY_DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+      - SECRET_KEY=${SECRET_KEY} 
+      - ALGORITHM=${ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+      - REFRESH_TOKEN_EXPIRE_DAYS=${REFRESH_TOKEN_EXPIRE_DAYS}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    depends_on:
+      - redis  
+      - db     
+    volumes:
+      - ./app:/app  
+
+  redis:
+    image: redis:alpine  
+    container_name: redis
+    ports:
+      - "6379:6379"  
+
+  db:
+    image: postgres:alpine  
+    container_name: db
+    environment:
+      POSTGRES_DB: mydatabase  
+      POSTGRES_USER: user     
+      POSTGRES_PASSWORD: password  
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+
+volumes:
+  postgres_data:

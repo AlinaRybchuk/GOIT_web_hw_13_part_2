@@ -1,13 +1,15 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from db import Base
 
 class User(Base):
-    __tablename__ = "users"
-
+    __tablename__ = 'users'
+    
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
+    is_verified = Column(Boolean, default=False)
+    verification_token = Column(String, unique=True, index=True, nullable=True)
 
     contacts = relationship("Contact", back_populates="owner")
 

@@ -13,6 +13,11 @@ sqlalchemy = "^2.0.36"
 pydantic = "^2.10.0"
 passlib = "^1.7.4"
 python-jose = "^3.3.0"
+redis = "^5.2.0"
+cloudinary = "^1.41.0"
+fastapi-limiter = "^0.1.6"
+python-dotenv = "^1.0.1"
+python-multipart = "^0.0.19"
 
 
 [build-system]
